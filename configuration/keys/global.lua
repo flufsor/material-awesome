@@ -36,14 +36,6 @@ local globalKeys =
   ),
   awful.key(
     {modkey},
-    'r',
-    function()
-      _G.screen.primary.left_panel:toggle(true)
-    end,
-    {description = 'show main menu', group = 'awesome'}
-  ),
-  awful.key(
-    {altkey},
     'space',
     function()
       _G.screen.primary.left_panel:toggle(true)
@@ -123,6 +115,14 @@ local globalKeys =
       awful.util.spawn(apps.default.browser)
     end,
     {description = 'open a browser', group = 'launcher'}
+  ),
+  awful.key(
+    {modkey},
+    'e',
+    function()
+      awful.spawn(apps.default.filemanager)
+    end,
+    {description = 'open a filemanager', group = 'launcher'}
   ),
   -- Standard program
   awful.key(
@@ -228,36 +228,6 @@ local globalKeys =
     end,
     {description = 'restore minimized', group = 'client'}
   ),
-  -- Dropdown application
-  awful.key(
-    {modkey},
-    'z',
-    function()
-      _G.toggle_quake()
-    end,
-    {description = 'dropdown application', group = 'launcher'}
-  ),
-  -- Widgets popups
-  --[[awful.key(
-    {altkey},
-    'h',
-    function()
-      if beautiful.fs then
-        beautiful.fs.show(7)
-      end
-    end,
-    {description = 'show filesystem', group = 'widgets'}
-  ),
-  awful.key(
-    {altkey},
-    'w',
-    function()
-      if beautiful.weather then
-        beautiful.weather.show(7)
-      end
-    end,
-    {description = 'show weather', group = 'widgets'}
-  ),--]]
   -- Brightness
   awful.key(
     {},
@@ -345,28 +315,8 @@ local globalKeys =
         )
     end,
     {description = 'open default program for tag/workspace', group = 'tag'}
-  ),
-  -- Custom hotkeys
-  -- vfio integration
-  awful.key(
-    {'Control',altkey},
-    'space',
-    function()
-      awful.util.spawn_with_shell('vm-attach attach')
-    end
-  ),
-  -- Emoji typing
-  -- setup info at https://gist.github.com/HikariKnight/8562837d28dec3674dba027c7892e6a5
-  awful.key(
-    {modkey},
-    'e',
-    function()
-      awful.util.spawn_with_shell('emoji-toggle')
-    end,
-    {description = 'Toggle the ibus unimoji engine for writing emojis', group = 'hotkeys'}
   )
 )
-
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it works on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.

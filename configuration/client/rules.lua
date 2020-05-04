@@ -1,7 +1,7 @@
-local awful = require('awful')
-local gears = require('gears')
-local client_keys = require('configuration.client.keys')
-local client_buttons = require('configuration.client.buttons')
+local awful = require("awful")
+local gears = require("gears")
+local client_keys = require("configuration.client.keys")
+local client_buttons = require("configuration.client.buttons")
 
 -- Rules
 awful.rules.rules = {
@@ -26,23 +26,19 @@ awful.rules.rules = {
     }
   },
   {
-    rule_any = {name = {'QuakeTerminal'}},
-    properties = {skip_decoration = true}
+    rule = {instance = "Navigator"},
+    properties = {tag = "1", switchtotag = true}
   },
-  -- Titlebars
   {
-    rule_any = {type = {'dialog'}, class = {'Wicd-client.py', 'calendar.google.com'}},
-    properties = {
-      placement = awful.placement.centered,
-      ontop = true,
-      floating = true,
-      drawBackdrop = true,
-      shape = function()
-        return function(cr, w, h)
-          gears.shape.rounded_rect(cr, w, h, 8)
-        end
-      end,
-      skip_decoration = true
-    }
-  }
+    rule = {instance = "code-oss"},
+    properties = {tag = "2", switchtotag = true}
+  },
+  {
+    rule = {instance = "Alacritty"},
+    properties = {tag = "3", switchtotag = true}
+  },
+  {
+    rule = {instance = "lutris"},
+    properties = {tag = "5", switchtotag = true}
+  },
 }
