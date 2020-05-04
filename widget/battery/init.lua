@@ -33,7 +33,7 @@ local widget =
   layout = wibox.layout.fixed.horizontal
 }
 
-local widget_button = clickable_container(wibox.container.margin(widget, dpi(14), dpi(14), 4, 4))
+local widget_button = clickable_container(wibox.container.margin(widget, dpi(10), dpi(10), 4, 4))
 widget_button:buttons(
   gears.table.join(
     awful.button(
@@ -65,7 +65,7 @@ local battery_popup =
 local function show_battery_warning()
   naughty.notify {
     icon = PATH_TO_ICONS .. 'battery-alert.svg',
-    icon_size = dpi(48),
+    icon_size = dpi(96),
     text = 'Huston, we have a problem',
     title = 'Battery is dying',
     timeout = 5,
@@ -79,16 +79,14 @@ end
 
 local last_battery_check = os.time()
 
-watch(
-  'acpi -i',
-  1,
-  function(_, stdout)
+watch('acpi -i', 1,
+function(_, stdout)
     local batteryIconName = 'battery'
 
     local battery_info = {}
     local capacities = {}
     for s in stdout:gmatch('[^\r\n]+') do
-      local status, charge_str, time = string.match(s, '.+: (%a+), (%d?%d?%d)%%,?.*')
+      local status, charge_str, time = string.match(s, '.+: (%a+), (%d?%d?%d)%%,?(.*)')
       if status ~= nil then
         table.insert(battery_info, {status = status, charge = tonumber(charge_str)})
       else
@@ -109,8 +107,7 @@ watch(
         status = batt.status -- use most charged battery status
       -- this is arbitrary, and maybe another metric should be used
       end
-
-      charge = charge + batt.charge * capacities[i]
+      charge = charge + batt.charge * capacity
     end
     charge = charge / capacity
 
