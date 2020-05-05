@@ -79,7 +79,7 @@ end
 
 local last_battery_check = os.time()
 
-watch('acpi -i', 1,
+watch('acpi -i', 10,
 function(_, stdout)
     local batteryIconName = 'battery'
 
